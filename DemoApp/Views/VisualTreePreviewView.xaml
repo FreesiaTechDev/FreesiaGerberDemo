@@ -1,0 +1,79 @@
+<Grid x:Class="FreesiaGerberDemo.Views.VisualTreePreviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:FreesiaGerberDemo.Models"
+             mc:Ignorable="d"
+             d:MinWidth="800"
+             d:MinHeight="600">
+    <Grid.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type models:VisualTreeNode}"
+                                  ItemsSource="{Binding Children}">
+            <TextBlock Text="{Binding Header}" 
+                       Padding="5"/>
+        </HierarchicalDataTemplate>
+    </Grid.Resources>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" MinWidth="240" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#D0D7DE" BorderThickness="0,1,1,0"
+                Grid.Column="0">
+            <DockPanel>
+                <Border BorderBrush="#005A9E" BorderThickness="0,0,0,1"
+                        Background="#007ACC"
+                        Padding="12,6"
+                        DockPanel.Dock="Top">
+                    <TextBlock Text="Tree"
+                               Foreground="#FFFFFF"
+                               FontSize="13"
+                               FontWeight="SemiBold" />
+                </Border>
+                <TreeView x:Name="VisualTreeView"
+                          BorderBrush="#D0D7DE"
+                          BorderThickness="1,1,0,1"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Recycling"
+                          ScrollViewer.CanContentScroll="True"
+                          TreeViewItem.Expanded="OnVisualTreeViewItemExpanded"
+                          SelectedItemChanged="OnVisualTreeViewSelectedItemChanged" />
+            </DockPanel>
+        </Border>
+        <GridSplitter Width="10"
+                      Margin="-5,0"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      ResizeBehavior="PreviousAndNext"
+                      Panel.ZIndex="100"
+                      Grid.Column="1" />
+        <Border BorderBrush="#D0D7DE" BorderThickness="1,1,0,0"
+                Grid.Column="2">
+            <DockPanel>
+                <Border BorderBrush="#005A9E" BorderThickness="0,0,0,1"
+                        Background="#007ACC"
+                        Padding="12,6"
+                        DockPanel.Dock="Top">
+                    <TextBlock Text="Detail"
+                               Foreground="#FFFFFF"
+                               FontSize="13"
+                               FontWeight="SemiBold" />
+                </Border>
+                <TextBox x:Name="VisualTreeDetailTextBox"
+                         BorderBrush="#D0D7DE"
+                         BorderThickness="0,1,1,1"
+                         Padding="4,0"
+                         FontFamily="Consolas"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</Grid>

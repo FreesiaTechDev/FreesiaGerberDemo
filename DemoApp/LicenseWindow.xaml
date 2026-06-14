@@ -1,0 +1,149 @@
+<Window x:Class="FreesiaGerberDemo.LicenseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="License" MinWidth="520" MaxWidth="560" MaxHeight="720"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Row="0">
+            <StackPanel>
+                <TextBlock Text="FreesiaGerberLib"
+                           FontSize="22"
+                           FontWeight="SemiBold" />
+                <TextBlock Text="Commercial Gerber Processing Library"
+                           Margin="0,4,0,0"
+                           Foreground="#57606A" />
+                <TextBlock Text="Target Framework: netstandard2.0"
+                           Margin="0,2,0,16"
+                           Foreground="#57606A" />
+                <Border Margin="0,0,0,12"
+                        Padding="12"
+                        Background="#F6F8FA"
+                        BorderBrush="#D0D7DE" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="License Status"
+                                   FontWeight="SemiBold" />
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Hardware Dongle"
+                                       Foreground="#57606A"
+                                       Grid.Row="0" Grid.Column="0" />
+                            <TextBlock x:Name="IsValidTextBlock"
+                                       FontWeight="SemiBold"
+                                       Grid.Row="0" Grid.Column="1" />
+                            <TextBlock Text="Features"
+                                       Margin="0,6,0,0"
+                                       Foreground="#57606A"
+                                       Grid.Row="1" Grid.Column="0" />
+                            <TextBlock x:Name="FeaturesTextBlock"
+                                       Margin="0,6,0,0"
+                                       TextWrapping="Wrap"
+                                       Grid.Row="1" Grid.Column="1" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Margin="0,0,0,12"
+                        Padding="12"
+                        Background="#F6F8FA"
+                        BorderBrush="#D0D7DE" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Feature Availability"
+                                   FontWeight="SemiBold" />
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Graphic RS274X"
+                                       Foreground="#57606A"
+                                       Grid.Row="0" Grid.Column="0" />
+                            <TextBlock x:Name="GraphicRS274XTextBlock"
+                                       FontWeight="SemiBold"
+                                       Grid.Row="0" Grid.Column="1" />
+                            <TextBlock Text="Graphic ODB++"
+                                       Margin="0,6,0,0"
+                                       Foreground="#57606A"
+                                       Grid.Row="1" Grid.Column="0" />
+                            <TextBlock x:Name="GraphicODBTextBlock"
+                                       Margin="0,6,0,0"
+                                       FontWeight="SemiBold"
+                                       Grid.Row="1" Grid.Column="1" />
+                            <TextBlock Text="Visual Tree RS274X"
+                                       Margin="0,6,0,0"
+                                       Foreground="#57606A"
+                                       Grid.Row="2" Grid.Column="0" />
+                            <TextBlock x:Name="VisualTreeRS274XTextBlock"
+                                       Margin="0,6,0,0"
+                                       FontWeight="SemiBold"
+                                       Grid.Row="2" Grid.Column="1" />
+                            <TextBlock Text="Visual Tree ODB++"
+                                       Margin="0,6,0,0"
+                                       Foreground="#57606A"
+                                       Grid.Row="3" Grid.Column="0" />
+                            <TextBlock x:Name="VisualTreeODBTextBlock"
+                                       Margin="0,6,0,0"
+                                       FontWeight="SemiBold"
+                                       Grid.Row="3" Grid.Column="1" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Margin="0,0,0,12"
+                        Padding="12"
+                        Background="#F6F8FA"
+                        BorderBrush="#D0D7DE" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Intellectual Property"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="FreesiaGerberLib.dll is proprietary commercial software. The demo source code is licensed separately under Apache License 2.0. This application does not grant any right to redistribute, modify, reverse engineer, or bypass the licensing mechanism of FreesiaGerberLib.dll."
+                                   Margin="0,8,0,0"
+                                   FontSize="12"
+                                   Foreground="#57606A"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+                <Border Padding="12"
+                        Background="#F6F8FA"
+                        BorderBrush="#D0D7DE" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Commercial Contact"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="For hardware dongle purchase or commercial licensing inquiries, please contact:"
+                                   Margin="0,8,0,0"
+                                   Foreground="#57606A"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Margin="0,6,0,0">
+                            <Run Text="Email: " />
+                            <Hyperlink NavigateUri="mailto:freesiatech0308@gmail.com?subject=FreesiaGerberLib%20Commercial%20License%20Inquiry&amp;body=Hello%2C%0A%0AI%20am%20interested%20in%20purchasing%20a%20hardware%20dongle%20for%20FreesiaGerberLib.%0A%0ACompany%20%2F%20Name%3A%20%0ACountry%20%2F%20Region%3A%20%0AUse%20case%3A%20%0AQuantity%3A%20%0A%0AThank%20you."
+                                       RequestNavigate="OnEmailRequestNavigate">freesiatech0308@gmail.com</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Content="OK"
+                Width="90" Height="30"
+                Margin="0,12,0,0"
+                HorizontalAlignment="Right"
+                Grid.Row="1"
+                Click="OnOkButtonClick" />
+    </Grid>
+</Window>

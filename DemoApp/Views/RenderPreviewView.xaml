@@ -1,0 +1,243 @@
+<Grid x:Class="FreesiaGerberDemo.Views.RenderPreviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:FreesiaGerberDemo.Converters"
+             xmlns:controls="clr-namespace:FreesiaGerberDemo.Controls"
+             xmlns:views="clr-namespace:FreesiaGerberDemo.Views"
+             mc:Ignorable="d"
+             d:MinWidth="800">
+    <Grid.Resources>
+        <Style x:Key="SectionHeaderBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="#E9EEF3" />
+            <Setter Property="BorderBrush" Value="#D0D7DE" />
+            <Setter Property="BorderThickness" Value="0,1,0,1" />
+            <Setter Property="Padding" Value="8,5" />
+        </Style>
+        <Style x:Key="SectionHeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#24292F" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style x:Key="PropertyLabelTextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#57606A" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="PropertyTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Padding" Value="4,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="RoiTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource PropertyTextBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=UseFullLayerCheckBox}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="1" />
+        <ColumnDefinition Width="300" MinWidth="260" />
+    </Grid.ColumnDefinitions>
+    <Border Background="Black"
+            Grid.Column="0">
+        <controls:ImageViewer x:Name="RenderImageViewer"
+                              Margin="0"
+                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Border>
+    <GridSplitter Width="10"
+                  Margin="-5,0"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  Background="Transparent"
+                  ResizeBehavior="PreviousAndNext"
+                  Panel.ZIndex="100"
+                  Grid.Column="1" />
+    <Border BorderBrush="#D0D7DE" BorderThickness="1,0,0,0"
+            Background="#F6F8FA"
+            Grid.Column="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="#005A9E" BorderThickness="0,0,0,1"
+                    Background="#007ACC"
+                    Padding="12,6"
+                    Grid.Row="0">
+                <TextBlock Text="Render Settings"
+                           Foreground="#FFFFFF"
+                           FontSize="13"
+                           FontWeight="SemiBold" />
+            </Border>
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Grid.Row="1">
+                <StackPanel>
+                    <Border Style="{StaticResource SectionHeaderBorderStyle}">
+                        <TextBlock Text="Layer"
+                                   Style="{StaticResource SectionHeaderTextBlockStyle}" />
+                    </Border>
+                    <Grid Margin="12,10,12,14">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="92" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Name"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="0" Grid.Column="0" />
+                        <TextBlock x:Name="LayerNameTextBlock"
+                                   Text="{Binding SelectedLayer, RelativeSource={RelativeSource AncestorType={x:Type views:RenderPreviewView}}, Converter={x:Static converters:MiscConverter.Instance}, ConverterParameter=LayerName}"
+                                   TextWrapping="Wrap"
+                                   Grid.Row="0" Grid.Column="1" />
+                        <TextBlock Text="Bound"
+                                   Margin="0,6,0,0"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="1" Grid.Column="0" />
+                        <TextBlock x:Name="LayerBoundTextBlock"
+                                   Text="{Binding SelectedLayer, RelativeSource={RelativeSource AncestorType={x:Type views:RenderPreviewView}}, Converter={x:Static converters:MiscConverter.Instance}, ConverterParameter=LayerBoundText, IsAsync=True}"
+                                   Margin="0,6,0,0"
+                                   TextWrapping="Wrap"
+                                   Grid.Row="1" Grid.Column="1" />
+                    </Grid>
+                    <Border Style="{StaticResource SectionHeaderBorderStyle}">
+                        <TextBlock Text="ROI"
+                                   Style="{StaticResource SectionHeaderTextBlockStyle}" />
+                    </Border>
+                    <CheckBox x:Name="UseFullLayerCheckBox"
+                              Content="Use Full Layer"
+                              Margin="12,10,12,6"
+                              IsChecked="True" />
+                    <Grid Margin="12,0,12,14">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="92" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Left"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="0" Grid.Column="0" />
+                        <TextBox x:Name="RoiLeftTextBox"
+                                 Margin="0,0,0,6"
+                                 Style="{StaticResource RoiTextBoxStyle}"
+                                 Grid.Row="0" Grid.Column="1" />
+                        <TextBlock Text="Top"
+                                   Margin="0,0,0,6"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="1" Grid.Column="0" />
+                        <TextBox x:Name="RoiTopTextBox"
+                                 Margin="0,0,0,6"
+                                 Style="{StaticResource RoiTextBoxStyle}"
+                                 Grid.Row="1" Grid.Column="1" />
+                        <TextBlock Text="Right"
+                                   Margin="0,0,0,6"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="2" Grid.Column="0" />
+                        <TextBox x:Name="RoiRightTextBox"
+                                 Margin="0,0,0,6"
+                                 Style="{StaticResource RoiTextBoxStyle}"
+                                 Grid.Row="2" Grid.Column="1" />
+                        <TextBlock Text="Bottom"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="3" Grid.Column="0" />
+                        <TextBox x:Name="RoiBottomTextBox"
+                                 Style="{StaticResource RoiTextBoxStyle}"
+                                 Grid.Row="3" Grid.Column="1" />
+                    </Grid>
+                    <Border Style="{StaticResource SectionHeaderBorderStyle}">
+                        <TextBlock Text="Transform"
+                                   Style="{StaticResource SectionHeaderTextBlockStyle}" />
+                    </Border>
+                    <CheckBox x:Name="MirrorHorizontalCheckBox"
+                              Content="Mirror Horizontal"
+                              Margin="12,10,12,4" />
+                    <CheckBox x:Name="MirrorVerticalCheckBox"
+                              Content="Mirror Vertical"
+                              Margin="12,0,12,14" />
+                    <Border Style="{StaticResource SectionHeaderBorderStyle}">
+                        <TextBlock Text="Output"
+                                   Style="{StaticResource SectionHeaderTextBlockStyle}" />
+                    </Border>
+                    <Grid Margin="12,10,12,14">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="92" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Pixel / Unit"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="0" Grid.Column="0" />
+                        <TextBox x:Name="PixelPerUnitTextBox"
+                                 Text="800"
+                                 Style="{StaticResource PropertyTextBoxStyle}"
+                                 Grid.Row="0" Grid.Column="1" />
+                        <TextBlock Text="Max Threads"
+                                   Margin="0,6,0,0"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="1" Grid.Column="0" />
+                        <TextBox x:Name="MaxThreadsTextBox"
+                                 Text="0"
+                                 Margin="0,6,0,0"
+                                 Style="{StaticResource PropertyTextBoxStyle}"
+                                 Grid.Row="1" Grid.Column="1" />
+                    </Grid>
+                    <Border Style="{StaticResource SectionHeaderBorderStyle}">
+                        <TextBlock Text="Colors"
+                                   Style="{StaticResource SectionHeaderTextBlockStyle}" />
+                    </Border>
+                    <Grid Margin="12,10,12,12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="92" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Background"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="0" Grid.Column="0" />
+                        <TextBox x:Name="BackgroundTextBox"
+                                 Text="#00000000"
+                                 Style="{StaticResource PropertyTextBoxStyle}"
+                                 Grid.Row="0" Grid.Column="1" />
+                        <TextBlock Text="Foreground"
+                                   Margin="0,6,0,0"
+                                   Style="{StaticResource PropertyLabelTextBlockStyle}"
+                                   Grid.Row="1" Grid.Column="0" />
+                        <TextBox x:Name="ForegroundTextBox"
+                                 Text="#FFFF0000"
+                                 Margin="0,6,0,0"
+                                 Style="{StaticResource PropertyTextBoxStyle}"
+                                 Grid.Row="1" Grid.Column="1" />
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <Border BorderBrush="#D0D7DE" BorderThickness="0,1,0,0"
+                    Background="#FFFFFF"
+                    Grid.Row="2">
+                <Button Content="Render"
+                        Height="36"
+                        Margin="12"
+                        HorizontalAlignment="Stretch"
+                        Click="OnRenderButtonClick" />
+            </Border>
+        </Grid>
+    </Border>
+</Grid>
